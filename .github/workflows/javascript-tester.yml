@@ -6,9 +6,9 @@ name: Build and Lint Javascript
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -21,22 +21,22 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        
+
       - uses: actions/setup-node@v1
         with:
           node-version: 14.3
       - run: npm install
         working-directory: ./Website/htdocs/mpmanager
-      
+
       - name: Eslint for Javascript files
         run: ./node_modules/.bin/eslint ./resources/assets/js/**/*.js
         working-directory: ./Website/htdocs/mpmanager
-      
+
       - name: Eslint for Vue files
         run: ./node_modules/.bin/eslint ./resources/assets/js/**/*.vue
         working-directory: ./Website/htdocs/mpmanager
-      
+
       - name: Build npm on production mode
         run: npm run production
         working-directory: ./Website/htdocs/mpmanager
-        
+

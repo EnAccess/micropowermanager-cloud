@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://github.com/EnAccess/micropowermanager-cloud">
     <img
-      src="https://micropowermanager.com/assets/images/Website_Illustrations_Logo.png"
+      src="https://mpmanager-french.readthedocs.io/fr/latest/_static/mpmlogo.png"
       alt="OpenSmartMeter"
-      width="320"
+      width="640"
     >
   </a>
 </p>

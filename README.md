@@ -58,12 +58,12 @@ To project also includes phpMyAdmin which enables quick database operations with
 
 The default credentials for the database are;
 
-```
+```sh
 username : laravel
 password: laravel
 ```
 
-**Please don't forget to change these before you publish your project**
+**Please don't forget to change these before you publish your project!**
 
 ## Building the Frontend
 
@@ -119,24 +119,24 @@ Currently, the system supports only CALIN-STS meters. To be able to communicate 
 
 1. Your key and the endpoint where you create those tokens.
 
-``` bash
-CALIN_KEY="CALIN-KEY"
-CALIN_CLIENT_URL="CALIN-CLIENT-URL"
-```
+    ``` bash
+    CALIN_KEY="CALIN-KEY"
+    CALIN_CLIENT_URL="CALIN-CLIENT-URL"
+    ```
 
 2. If you have meters which can send their consumption data to CALIN's server please fill the below-listed variables too
 
-```bash
-METER_DATA_URL="REMOTE-METER-READING-URL"
-METER_DATA_KEY="METER-READING-KEY"
-METER_DATA_USER="METER-READING-USER"
-```
+    ```bash
+    METER_DATA_URL="REMOTE-METER-READING-URL"
+    METER_DATA_KEY="METER-READING-KEY"
+    METER_DATA_USER="METER-READING-USER"
+    ```
 
 ### Pusher(Web Socket)
 
 Pusher is used to notify your admins when a new ticket is been created.
 
-```
+```sh
 PUSHER_APP_ID="PUSHER-APP-ID"
 PUSHER_APP_KEY="PUSHER-KEY"
 PUSHER_APP_SECRET="PUSHER-APP-SECRET"
@@ -262,17 +262,17 @@ The development environment is served under **<http://mpmanager.local>**
 To reach the site over the given url;
 enter the following lines to your hosts file.
 
-#### For Linux/Mac Users
+## For Linux/Mac Users
 
-```
+```sh
 /etc/hosts
 127.0.0.1       mpmanager.local
 127.0.0.1       db.mpmanager.local
 ```
 
-#### For Windows
+## For Windows
 
-```
+```sh
 c:\windows\system32\drivers\etc\hosts
 127.0.0.1       mpmanager.local
 127.0.0.1       db.mpmanager.local

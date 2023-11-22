@@ -10,3 +10,8 @@ config:
 # Define glob expressions to use (only valid at root)
 globs:
   - "**/*.md"
+
+ignores:
+  - "Website/ui/src/docs/source/index.md"
+  - "Website/ui/src/docs/source/.compare.md"
+  - "Website/htdocs/mpmanager/packages/"

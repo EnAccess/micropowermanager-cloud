@@ -1,4 +1,4 @@
-version: '3.1'
+version: "3.1"
 
 services:
   'laravel':
@@ -54,7 +54,7 @@ services:
     build:
       context: Docker/
       dockerfile: DockerfileComposer
-    restart: 'no'
+    restart: "no"
     command: install
     volumes:
       - ./Website/htdocs/mpmanager:/app
@@ -92,5 +92,5 @@ services:
       - ./Website/htdocs:/var/www/html
       - ./NginxProxy/conf.nd:/etc/nginx/conf.d
     ports:
-      - "80:80"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+      - 80:80
+    command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'

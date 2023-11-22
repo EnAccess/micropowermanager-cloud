@@ -1,10 +1,10 @@
-version: '3.1'
+version: "3.1"
 networks:
   micro_power_manager:
     driver: bridge
     ipam:
       config:
-        - subnet:  172.18.0.0/16
+        - subnet: 172.18.0.0/16
           gateway: 172.18.0.1
 
 services:
@@ -82,7 +82,7 @@ services:
     build:
       context: Docker/
       dockerfile: DockerfileComposer
-    restart: 'no'
+    restart: "no"
     command: install
     volumes:
       - ./Website/htdocs/mpmanager:/app
@@ -123,9 +123,9 @@ services:
       - ./certbot/www:/var/www/certbot
       - /var/run/docker.sock:/tmp/docker.sock:ro
     ports:
-      - "80:80"
-      - "443:443"
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+      - 80:80
+      - 443:443
+    command: /bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'
     networks:
       micro_power_manager:
         ipv4_address: 172.18.0.9
@@ -137,8 +137,7 @@ services:
     volumes:
       - ./certbot/conf:/etc/letsencrypt
       - ./certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    entrypoint: /bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'
     networks:
       micro_power_manager:
         ipv4_address: 172.18.0.10
-

@@ -1,10 +1,10 @@
-#default image
+# default image
 image: php:8.1-apache
 
-#default before_script
+# default before_script
 before_script:
   - apt-get update && apt-get install rsync -y
-  - 'which ssh-agent || (apt-get update && apt-get install openssh-client -y)'
+  - which ssh-agent || (apt-get update && apt-get install openssh-client -y)
   - mkdir -p ~/.ssh
   - eval $(ssh-agent -s)
   - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
@@ -27,7 +27,7 @@ deploy_production_api:
     - cd $project_root/Website/htdocs/mpmanager && rm  .env
     # rename .env-staging to .env
     - cd $project_root/Website/htdocs/mpmanager && mv .env_production .env
-      # upload files
+    # upload files
     - rsync -az -e ssh $project_root/Website/htdocs/mpmanager/ $PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST:$PRODUCTION_API_TARGET_DIRECTORY/
     # remove not related docker-compose files
     - cd $project_root/ && rm docker-compose.yml
@@ -82,7 +82,7 @@ deploy_staging_api:
     - cd $project_root/Website/htdocs/mpmanager && rm  .env
     # rename .env-staging to .env
     - cd $project_root/Website/htdocs/mpmanager && mv .env_staging .env
-      # upload files
+    # upload files
     - rsync -az -e ssh $project_root/Website/htdocs/mpmanager/ $STAGING_SSH_USER@$STAGING_SSH_HOST:$STAGING_API_TARGET_DIRECTORY/
     # remove not related docker-compose files
     - cd $project_root/ && rm docker-compose.yml

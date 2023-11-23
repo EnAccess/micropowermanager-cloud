@@ -1,0 +1,6 @@
+{
+    "Exclude": [
+        "Website/htdocs/mpmanager/packages/inensus/",
+        "composer.phar"
+    ]
+}

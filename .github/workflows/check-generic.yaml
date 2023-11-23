@@ -18,10 +18,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install editorconfig-checker
-        run: pipx install "editorconfig-checker"
       - name: Run editorconfig-checker
-        run: ec .
+        run: docker run --rm --volume=$PWD:/check mstruebing/editorconfig-checker
 
   markdownlint:
     name: Run markdownlint

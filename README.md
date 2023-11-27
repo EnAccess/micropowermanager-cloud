@@ -47,11 +47,11 @@
 
 ### Docker installation
 
-1. Windows & Mac
+**Windows and Mac:**
 
 - [Docker Desktop](https://www.docker.com/products/docker-desktop).
 
-2. Linux
+**Linux:**
 
 - Docker provides installation instructions for various Linux distributions. You can find them on
   the [Docker installation page for Linux.](https://docs.docker.com/engine/install/).
@@ -61,11 +61,11 @@
 Docker Compose is often included with the Docker Desktop installations for Windows and Mac. For Linux, you might need to
 install it separately.
 
-1. Windows and Mac:
+**Windows and Mac:**
 
 - Included with Docker Desktop.
 
-2. Linux:
+**Linux:**
 
 - Docker Compose on GitHub <https://github.com/docker/compose/releases>
 - On the GitHub page, you can find instructions for downloading and installing Docker Compose on Linux. Be sure to check
@@ -83,17 +83,17 @@ install it separately.
 The development environment is served under <http://mpmanager.local> To reach the site over the given url; enter the
 following lines to your hosts file.
 
-#### For Linux/Mac Users
+### For Linux/Mac Users
 
-```
+```sh
 /etc/hosts
 127.0.0.1       mpmanager.local
 127.0.0.1       db.mpmanager.local
 ```
 
-#### For Windows Users
+### For Windows Users
 
-```
+```sh
 c:\windows\system32\drivers\etc\hosts
 127.0.0.1       mpmanager.local
 127.0.0.1       db.mpmanager.local
@@ -106,7 +106,7 @@ The frontend is built with Vue.js. After first run with `docker-compose up` depe
 automatically.
 If you want to install dependencies manually, you can run `npm install` under `Website/ui` folder.
 
-#### Folder Structure
+### Folder Structure
 
 When adding new files to the project, please adhere to the following folder structure:
 
@@ -114,7 +114,7 @@ When adding new files to the project, please adhere to the following folder stru
   Modules are the components used in pages. For example, the Client module holds components related to clients. Every
   component associated with clients should be placed under the Client module.
 
-```
+```sh
 Website/ui
 ├── src
 │   ├── modules
@@ -127,7 +127,7 @@ Website/ui
   are not using nuxt.js, routes need to be defined manually. You can find the routes in
   the `Website/ui/src/ExportedRoutes.js` file.
 
-```
+```sh
 Website/ui
 ├── src
 │   ├── pages
@@ -142,7 +142,7 @@ Plugins are additional components developed as separate packages to enhance our 
 main codebase clean. Each plugin should reside in its own folder under the `Website/ui/src/plugins` directory.
 Additionally, each plugin should have its own backend code, which will be explained in the backend section.
 
-```
+```sh
 Website/ui
 ├── src
 │   ├── plugins
@@ -219,7 +219,7 @@ These commands will create the central database and the first company database. 
 dummy data.
 You can use the following credentials to login to the application:
 
-```
+```sh
 username: dummy@user.com
 password: 123123
 ```
@@ -265,7 +265,7 @@ cd mpmanager
 php shard:migrate {company_id} {--force}
 ```
 
-#### Plugins
+### Install Plugins
 
 We have a custom plugin creator command that generates a template. Use the following command to create a new plugin:
 
@@ -284,7 +284,7 @@ To project also includes phpMyAdmin which enables quick database operations with
 
 The default credentials for the database are;
 
-```
+```sh
 username: root
 password: wF9zLp2qRxaS2e
 ```

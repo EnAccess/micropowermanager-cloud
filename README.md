@@ -237,7 +237,7 @@ cd mpmanager
 php artisan migrator:create {migration-name}
 ```
 
-This command creates a migration file in Micropower Manager's core migration files location: `Website/htdocs/mpmanager/database/migrations/micropowermanager
+This command creates a migration file in Micropower Manager's core migration files location: `Website/htdocs/mpmanager/database/migrations/micropowermanager`
 
 After creating the migration file, you can shift it to other company databases using the following command:
 

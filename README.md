@@ -282,7 +282,7 @@ Additionally, this command will create UI folders for the newly created plugin. 
 
 To project also includes phpMyAdmin which enables quick database operations without installing third-party software or writing any single line into the terminal.
 
-The default credentials for the database are;
+The default credentials for the database are:
 
 ```sh
 username: root

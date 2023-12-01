@@ -7,6 +7,7 @@ use App\Models\Meter\Meter;
 use App\Models\Meter\MeterToken;
 use App\Models\Revenue;
 use App\Models\Transaction\Transaction;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 class MeterRevenueService
@@ -74,7 +75,7 @@ class MeterRevenueService
         int $connectionId,
         string $startDate,
         string $endDate
-    ): array {
+    ): Collection {
         return Transaction::query()
             ->selectRaw('SUM(transactions.amount) as total, YEARWEEK(transactions.created_at, 3) as result_date')
             ->whereIn('transactions.message', function ($query) use ($connectionId, $cityIds) {
@@ -97,7 +98,7 @@ class MeterRevenueService
             )
             ->whereBetween(DB::raw('DATE(transactions.created_at)'), [$startDate, $endDate])
             ->groupBy(DB::raw('YEARWEEK(transactions.created_at, 3)'))
-            ->get()->toArray();
+            ->get();
     }
 
     public function getConnectionGroupBasedRevenueForMiniGrid(

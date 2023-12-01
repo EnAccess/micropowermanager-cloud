@@ -11,14 +11,13 @@ use App\Models\Person\Person;
 use App\Models\Transaction\CashTransaction;
 use App\Models\Transaction\Transaction;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 use MPM\CustomBulkRegistration\Abstract\CreatorService;
 
 class AppliancePersonService extends CreatorService
 {
 
     private $newTarifName = null;
-    private $price = null;
+    private ?float $price = null;
     private $minimumAmount = null;
     private $meterParameterId = null;
     private $personId = null;
@@ -75,7 +74,7 @@ class AppliancePersonService extends CreatorService
         return $this->createRelatedDataIfDoesNotExists($appliancePersonData);
     }
 
-    private function calculateRateCount($price, $downPayment, $minimumPaymentAmount)
+    private function calculateRateCount($price, $downPayment, $minimumPaymentAmount): int
     {
         $rawCost = $price - $downPayment;
         $rateCount = 0;
@@ -215,16 +214,17 @@ class AppliancePersonService extends CreatorService
         return $appliancePerson;
     }
 
-    private function updateRateRemaining($id, $amount)
+    private function updateRateRemaining($id, $amount): ?AssetRate
     {
-        $applianceRate = AssetRate::find($id);
+        /** @var AssetRate|null $applianceRate */
+        $applianceRate = AssetRate::query()->find($id);
         $applianceRate->remaining -= $amount;
         $applianceRate->update();
         $applianceRate->save();
         return $applianceRate;
     }
 
-    private function createPaymentHistory($amount, $buyer, $applianceRate, $transaction)
+    private function createPaymentHistory($amount, $buyer, $applianceRate, $transaction): void
     {
         event(
             'payment.successful',

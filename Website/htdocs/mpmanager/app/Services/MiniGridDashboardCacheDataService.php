@@ -137,7 +137,7 @@ class MiniGridDashboardCacheDataService extends AbstractDashboardCacheDataServic
                     $connectionType->id,
                     $startDate,
                     $endDate
-                );
+                )->toArray();
                 foreach ($tariffRevenue as $revenue) {
                     $totalRevenue = (int)$revenue['total'];
                     $date = $this->reformatPeriod($revenue['result_date']);

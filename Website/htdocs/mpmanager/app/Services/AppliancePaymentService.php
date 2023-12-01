@@ -48,19 +48,21 @@ class AppliancePaymentService
         return $appliancePerson;
     }
 
-    public function updateRateRemaining($id, $amount)
+    public function updateRateRemaining($id, $amount): AssetRate
     {
-        $applianceRate = AssetRate::find($id);
+        /** @var AssetRate $applianceRate */
+        $applianceRate = AssetRate::query()->findOrFail($id);
         $applianceRate->remaining -= $amount;
         $applianceRate->update();
         $applianceRate->save();
         return $applianceRate;
     }
 
-    public function createPaymentLog($appliancePerson, $amount, $creatorId)
+    public function createPaymentLog($appliancePerson, $amount, $creatorId): void
     {
+        /** @var MainSettings $mainSettings */
         $mainSettings = $this->mainSettings->newQuery()->first();
-        $currency = $mainSettings === null ? '€' : $mainSettings->currency;
+        $currency = $mainSettings  ? $mainSettings->currency: '€';
         event(
             'new.log',
             [

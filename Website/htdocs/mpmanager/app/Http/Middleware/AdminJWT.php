@@ -12,38 +12,12 @@ use Tymon\JWTAuth\Claims\Collection;
 
 class AdminJWT
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Request $request
-     * @param  Closure $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
         /**
          * @var Response
          */
-        $response = $next($request);
-
-        return $response;
+        return  $next($request);
     }
 
-    private function createJWT()
-    {
-        $payload = JWTFactory::sub(123)->exp(time() + 3600)->aud('foo')->foo(['bar' => 'baz'])->make();
-        $token = JWTAuth::encode($payload);
-        return $token;
-    }
-
-    private function validateJWT(): bool
-    {
-        try {
-            $token = JWTAuth::parseToken();
-        } catch (Exception $e) {
-            return false;
-        } finally {
-            return true;
-        }
-    }
 }

@@ -10,6 +10,7 @@ use App\Models\Transaction\Transaction;
 use App\Services\AppliancePaymentService;
 use App\Services\AppliancePersonService;
 use App\Services\ApplianceRateService;
+use Illuminate\Support\Collection;
 use MPM\Device\DeviceService;
 
 class ApplianceInstallmentPayer
@@ -95,7 +96,7 @@ class ApplianceInstallmentPayer
         return $this->applianceRateService->getByLoanIdsForDueDate($loans);
     }
 
-    private function pay(mixed $installments, mixed $customer): void
+    private function pay(Collection $installments, mixed $customer): void
     {
         $installments->map(function ($installment) use ($customer) {
             if ($installment->remaining > $this->transaction->amount) {// money is not enough to cover the whole rate

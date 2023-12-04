@@ -30,7 +30,6 @@ trait RestExceptionHandler
      */
     protected function getJsonResponseForException(Request $request, Exception|Throwable $e)
     {
-        $response = null;
         switch (true) {
             case $e instanceof TokenExpiredException:
                 return response()->json(['error' => 'Token is expired'], 401);

@@ -33,8 +33,6 @@ class AgentCustomerService
 
     public function search($searchTerm, $limit, $agent)
     {
-        $miniGridId = $agent->mini_grid_id;
-
         return $this->person->newQuery()->with(['addresses.city', 'devices'])->whereHas(
             'addresses', fn($q) => $q->where('phone', 'LIKE', '%' . $searchTerm . '%')
         )->orWhereHas(

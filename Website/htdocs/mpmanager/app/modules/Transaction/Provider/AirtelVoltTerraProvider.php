@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 
-class AirtelVoltTerra implements ITransactionProvider
+class AirtelVoltTerraProvider implements ITransactionProvider
 {
 
     private $validData;
@@ -28,8 +28,9 @@ class AirtelVoltTerra implements ITransactionProvider
      */
     public function __construct(
         private \App\Models\Transaction\AirtelTransaction $airtelTransaction,
-        private Transaction $transaction
-    ) {
+        private Transaction                               $transaction
+    )
+    {
 
     }
 
@@ -181,26 +182,26 @@ class AirtelVoltTerra implements ITransactionProvider
 
     public function confirm(): void
     {
-        // TODO: Implement confirm() method.
+        throw new \Exception("not implemented");
     }
 
     public function getMessage(): string
     {
-        // TODO: Implement getMessage() method.
+        throw new \Exception("not implemented");
     }
 
     public function getAmount(): int
     {
-        // TODO: Implement getAmount() method.
+        throw new \Exception("not implemented");
     }
 
     public function getSender(): string
     {
-        // TODO: Implement getSender() method.
+        throw new \Exception("not implemented");
     }
 
     public function getTransaction(): Transaction
     {
-        // TODO: Implement getTransaction() method.
+        throw new \Exception("not implemented");
     }
 }

@@ -86,8 +86,10 @@ class MeterRevenueService
                     ->where('addresses.owner_type', 'device')
                     ->where('devices.device_type', 'meter')
                     ->where('meters.connection_type_id', $connectionId)
-                    ->whereIn('addresses.city_id',
-                        explode(',', $cityIds));  // assuming $miniGridId is a comma-separated string
+                    ->whereIn(
+                        'addresses.city_id',
+                        explode(',', $cityIds)
+                    );  // assuming $miniGridId is a comma-separated string
             })
             ->whereHasMorph(
                 'originalTransaction',
@@ -166,8 +168,8 @@ class MeterRevenueService
         int $miniGridId,
         int $connectionGroupId,
         string $startDate,
-        string $endDate): array
-    {
+        string $endDate
+    ): array {
         return Meter::query()
             ->selectRaw('COUNT(meters.id) as registered_connections, connection_groups.name, YEARWEEK(meters.created_at, 3) as period')
             ->leftJoin('devices', 'devices.device_id', '=', 'meters.id')
@@ -189,8 +191,8 @@ class MeterRevenueService
         int $clusterId,
         int $connectionGroupId,
         string $startDate,
-        string $endDate): array
-    {
+        string $endDate
+    ): array {
         return Meter::query()
             ->selectRaw('COUNT(meters.serial_number) as registered_connections, connection_groups.name, YEARWEEK(meter_parameters.created_at, 3) as period')
             ->leftJoin('devices', 'devices.device_id', '=', 'meters.id')

@@ -22,7 +22,6 @@ class AppliancePaymentService
         private AppliancePersonService $appliancePersonService,
         private DeviceService $deviceService
     ) {
-
     }
 
     public function getPaymentForAppliance($request, $appliancePerson)
@@ -42,8 +41,11 @@ class AppliancePaymentService
         } else {
             $this->createPaymentLog($appliancePerson, $amount, $creatorId);
         }
-        $applianceDetail->rates->map(fn($installment) => $this->payInstallment($installment, $applianceOwner,
-            $transaction));
+        $applianceDetail->rates->map(fn($installment) => $this->payInstallment(
+            $installment,
+            $applianceOwner,
+            $transaction
+        ));
 
         return $appliancePerson;
     }
@@ -62,7 +64,7 @@ class AppliancePaymentService
     {
         /** @var MainSettings $mainSettings */
         $mainSettings = $this->mainSettings->newQuery()->first();
-        $currency = $mainSettings  ? $mainSettings->currency: '€';
+        $currency = $mainSettings  ? $mainSettings->currency : '€';
         event(
             'new.log',
             [

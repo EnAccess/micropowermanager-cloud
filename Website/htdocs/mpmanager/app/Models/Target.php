@@ -67,9 +67,9 @@ class Target extends BaseModel
     {
         return $this::query()
             ->select(DB::raw("*, YEARWEEK(target_date,3) as period"))->with(
-            'subTargets.connectionType',
-            'city'
-        )
+                'subTargets.connectionType',
+                'city'
+            )
             ->where('owner_id', $cityId)
             ->where('owner_type', 'mini-grid')
             ->where('target_date', '<', $startDate)

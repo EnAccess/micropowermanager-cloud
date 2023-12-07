@@ -6,6 +6,7 @@ use App\Models\Address\Address;
 use App\Models\Meter\Meter;
 use App\Models\Meter\MeterParameter;
 use App\Models\Person\Person;
+use App\Models\Transaction\AirtelTransaction;
 use App\Models\Transaction\Transaction;
 use App\Models\Transaction\TransactionConflicts;
 use App\Services\SmsService;
@@ -17,26 +18,23 @@ use Illuminate\Support\Facades\Validator;
 
 class AirtelVoltTerraProvider implements ITransactionProvider
 {
-
     private $validData;
 
     /**
      * DI will initialize the needed models
      *
-     * @param \App\Models\Transaction\AirtelTransaction $airtelTransaction
+     * @param AirtelTransaction $airtelTransaction
      * @param Transaction $transaction
      */
     public function __construct(
-        private \App\Models\Transaction\AirtelTransaction $airtelTransaction,
-        private Transaction                               $transaction
-    )
-    {
-
+        private AirtelTransaction $airtelTransaction,
+        private Transaction $transaction
+    ) {
     }
 
     public function saveTransaction(): void
     {
-        $this->airtelTransaction = new \App\Models\Transaction\AirtelTransaction();
+        $this->airtelTransaction = new AirtelTransaction();
         $this->transaction = new Transaction();
         //assign data
         $this->assignData();
@@ -161,7 +159,7 @@ class AirtelVoltTerraProvider implements ITransactionProvider
         $this->transaction->message = $this->validData['meterSerial'];
     }
 
-    public function saveData(\App\Models\Transaction\AirtelTransaction $airtelTransaction): void
+    public function saveData(AirtelTransaction $airtelTransaction): void
     {
         $airtelTransaction->save();
         event('transaction.confirm');

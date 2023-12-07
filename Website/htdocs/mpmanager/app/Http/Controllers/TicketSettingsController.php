@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class TicketSettingsController extends Controller
 {
-
     public function __construct(private TicketSettings $ticketSettings)
     {
     }
@@ -20,7 +19,7 @@ class TicketSettingsController extends Controller
 
     public function update(Request $request): ApiResource
     {
-        $ticketSettings = TicketSettings::query()->updateOrCreate(
+        $ticketSettings = $this->ticketSettings::query()->updateOrCreate(
             [
                 'id' => $request->input('id')
             ],

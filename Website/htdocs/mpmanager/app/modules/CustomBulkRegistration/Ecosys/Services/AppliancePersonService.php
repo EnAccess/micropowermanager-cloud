@@ -15,7 +15,6 @@ use MPM\CustomBulkRegistration\Abstract\CreatorService;
 
 class AppliancePersonService extends CreatorService
 {
-
     private $newTarifName = null;
     private ?float $price = null;
     private $minimumAmount = null;
@@ -55,7 +54,8 @@ class AppliancePersonService extends CreatorService
             'rate_count' => $this->calculateRateCount(
                 $csvData[$appliancePersonConfig['total_cost']],
                 $csvData[$appliancePersonConfig['down_payment']],
-                $csvData[$appliancePersonConfig['minimum_payment_amount']]),
+                $csvData[$appliancePersonConfig['minimum_payment_amount']]
+            ),
             'first_payment_date' => $csvData[$appliancePersonConfig['created_at']],
             'creator_id' => $creatorId,
             'creator_type' => 'admin'
@@ -169,8 +169,8 @@ class AppliancePersonService extends CreatorService
                 [
                     'user_id' => $creatorId,
                     'status' => 1,
-                    'created_at'=> $this->lastPaymentDate,
-                    'updated_at'=> $this->lastPaymentDate
+                    'created_at' => $this->lastPaymentDate,
+                    'updated_at' => $this->lastPaymentDate
                 ]
             );
             $secondTransaction = Transaction::query()->make(

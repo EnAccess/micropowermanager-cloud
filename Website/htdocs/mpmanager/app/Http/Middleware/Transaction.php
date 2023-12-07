@@ -4,11 +4,11 @@ namespace App\Http\Middleware;
 
 use App\Exceptions\PaymentProviderNotIdentified;
 use Closure;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use MPM\Transaction\Provider\ITransactionProvider;
+
 use function in_array;
 
 class Transaction
@@ -25,12 +25,15 @@ class Transaction
 
     private function determineSender(Request $request): ITransactionProvider
     {
-        if (preg_match('/\/vodacom/', $request->url())
+        if (
+            preg_match('/\/vodacom/', $request->url())
             && in_array($request->ip(), Config::get('services.vodacom.ips'))
         ) {
             return resolve('VodacomPaymentProvider');
-        } elseif (preg_match('/\/airtel/', $request->url())
-            && in_array($request->ip(), Config::get('services.airtel.ips'))) {
+        } elseif (
+            preg_match('/\/airtel/', $request->url())
+            && in_array($request->ip(), Config::get('services.airtel.ips'))
+        ) {
             return resolve('AirtelPaymentProvider');
         } elseif (preg_match('/\/agent/', $request->url()) && auth('agent_api')->user()) {
             return resolve('AgentPaymentProvider');

@@ -21,7 +21,6 @@ class AgentTransactionProvider implements ITransactionProvider
         private Transaction $transaction,
         private FirebaseService $fireBaseService
     ) {
-
     }
 
     public function saveTransaction(): void

@@ -1,4 +1,5 @@
 <?php
+
 namespace MPM\Transaction\Provider;
 
 use App\Exceptions\VodacomHeartBeatException;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use SimpleXMLElement;
-
 
 class VodacomTransactionProvider implements ITransactionProvider
 {

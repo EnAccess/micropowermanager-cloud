@@ -23,16 +23,14 @@ use stdClass;
 class RevenueController extends Controller
 {
     public function __construct(
-        private Ticket              $ticket,
-        private TicketCategory      $label,
-        private PeriodService       $periodService,
-        private City                $city,
-        private RevenueService      $revenueService,
+        private Ticket $ticket,
+        private TicketCategory $label,
+        private PeriodService $periodService,
+        private City $city,
+        private RevenueService $revenueService,
         private MeterRevenueService $meterRevenueService,
-        private Target              $target,
-    )
-    {
-
+        private Target $target,
+    ) {
     }
 
     public function ticketData($id): ApiResource

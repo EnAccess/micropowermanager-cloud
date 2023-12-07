@@ -640,7 +640,7 @@ class Reports
             $writer->save(storage_path('./' . $reportType . '/' . $fileName));
             $this->report->create(
                 [
-                    'path' => storage_path($reportType . '/' . $fileName.'*'.$companyId),
+                    'path' => storage_path($reportType . '/' . $fileName . '*' . $companyId),
                     'type' => $reportType,
                     'date' => $startDate . '---' . $endDate,
                     'name' => $cityName,
@@ -732,7 +732,6 @@ class Reports
             )
             ->groupBy('meter_parameters.meter_id')
             ->get()->toArray();
-
     }
 
     private function addTargetsToXls(Worksheet $sheet): void

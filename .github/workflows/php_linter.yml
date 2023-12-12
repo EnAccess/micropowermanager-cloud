@@ -35,7 +35,6 @@ jobs:
         run: ./vendor/bin/phpcs --standard=PSR12 --tab-width=4 --exclude=Generic.Files.LineLength app/
         working-directory: ./Website/htdocs/mpmanager
 
-      
       - name: Run PHPStan
         run: ./vendor/bin/phpstan analyze --error-format=table  app/Http app/Services app/Models/ app/Events app/Listeners app/Misc app/modules --memory-limit=2G  --level=1
         working-directory: ./Website/htdocs/mpmanager

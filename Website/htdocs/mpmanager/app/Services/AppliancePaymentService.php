@@ -148,7 +148,7 @@ class AppliancePaymentService
         $transactionData->dayDifferenceBetweenTwoInstallments = $dayDiff;
         $transactionData->appliancePerson = $applianceDetail;
         $manufacturerApi = resolve($manufacturer->api_name);
-        $tokenData = $manufacturerApi->chargeMeter($transactionData);
+        $tokenData = $manufacturerApi->chargeDevice($transactionData);
         $token = Token::query()->make([
             'token' => $tokenData['token'],
             'load' => $tokenData['load']

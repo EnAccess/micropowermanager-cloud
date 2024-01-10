@@ -46,7 +46,7 @@ class GeographicalInformationService implements IBaseService, IAssociative
 
     public function update($model, $data)
     {
-        // TODO: Implement update() method.
+       return $model->newQuery()->update($data);
     }
 
     public function make($geographicalInformationData)

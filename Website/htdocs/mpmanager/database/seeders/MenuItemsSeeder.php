@@ -94,7 +94,12 @@ class MenuItemsSeeder extends Seeder
                     'md_icon' => 'solar_power',
                     'menu_order' => '13',
                 ],
-
+                [
+                    'name' => 'Daly Bms',
+                    'url_slug' => '',
+                    'md_icon' => 'charging_station',
+                    'menu_order' => '14',
+                ]
             )
         );
     }

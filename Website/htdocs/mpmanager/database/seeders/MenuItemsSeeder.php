@@ -95,9 +95,9 @@ class MenuItemsSeeder extends Seeder
                     'menu_order' => '13',
                 ],
                 [
-                    'name' => 'Daly Bms',
-                    'url_slug' => '',
-                    'md_icon' => 'charging_station',
+                    'name' => 'E-Bikes',
+                    'url_slug' => '/e-bikes/page/1',
+                    'md_icon' => 'electric_bike',
                     'menu_order' => '14',
                 ]
             )

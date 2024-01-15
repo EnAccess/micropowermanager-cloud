@@ -24,7 +24,8 @@ class EBikeTransactionService
 
         $query = $this->transaction->newQuery()->with('originalTransaction')->whereHas(
             'device',
-            fn($q) => $q->whereHasMorph('device', EBike::class));
+            fn($q) => $q->whereHasMorph('device', EBike::class)
+        );
 
         if ($serialNumber) {
             $query->where('message', 'LIKE', '%' . request('serial_number') . '%');

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-class EBike  extends BaseModel
+class EBike extends BaseModel
 {
     public const RELATION_NAME = 'e_bike';
     protected $table = 'e_bikes';
@@ -22,6 +22,6 @@ class EBike  extends BaseModel
 
     public function appliance(): BelongsTo
     {
-        return $this->belongsTo(Asset::class,'asset_id','id');
+        return $this->belongsTo(Asset::class, 'asset_id', 'id');
     }
 }

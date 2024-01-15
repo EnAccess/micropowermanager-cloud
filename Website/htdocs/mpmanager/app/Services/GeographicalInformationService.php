@@ -13,7 +13,7 @@ class GeographicalInformationService implements IBaseService, IAssociative
     }
 
     // This function will be removed until devices feature migration is done
-    public function changeOwnerWithAddress($meterParameter,$addressId)
+    public function changeOwnerWithAddress($meterParameter, $addressId)
     {
         $geoInfo = $this->geographicalInformation->newQuery()->where('owner_type', 'meter_parameter')->where('owner_id', $meterParameter->id)->first();
         if ($geoInfo) {
@@ -46,7 +46,7 @@ class GeographicalInformationService implements IBaseService, IAssociative
 
     public function update($model, $data)
     {
-       return $model->newQuery()->update($data);
+        return $model->newQuery()->update($data);
     }
 
     public function make($geographicalInformationData)

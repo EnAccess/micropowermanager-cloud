@@ -50,8 +50,7 @@ class AssetRateChecker extends AbstractSharedCommand
                 ->whereBetween('due_date', [
                         now()->subDays($smsApplianceRemindRate->remind_rate)->toDateString(),
                         now()->toDateString()
-                    ]
-                )
+                    ])
                 ->where('remaining', '>', 0)
                 ->whereHas(
                     'assetPerson.person.addresses',
@@ -73,8 +72,7 @@ class AssetRateChecker extends AbstractSharedCommand
                 ->whereBetween('due_date', [
                         now()->toDateString(),
                         now()->addDays($smsApplianceRemindRate->overdue_remind_rate)->toDateString(),
-                    ]
-                )
+                    ])
                 ->where('remaining', '>', 0)
                 ->where('remind', 0)
                 ->get();

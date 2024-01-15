@@ -9,7 +9,6 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class EBikeService implements IBaseService
 {
-
     public function __construct(private EBike $eBike)
     {
     }
@@ -36,10 +35,14 @@ class EBikeService implements IBaseService
     {
         return $this->eBike->newQuery()
             ->with(['manufacturer', 'appliance', 'device.person'])
-            ->whereHas('device',
-                fn($q) => $q->whereHas('person',
+            ->whereHas(
+                'device',
+                fn($q) => $q->whereHas(
+                    'person',
                     fn($q) => $q->where('name', 'LIKE', '%' . $term . '%')
-                        ->orWhere('surname', 'LIKE', '%' . $term . '%')))
+                    ->orWhere('surname', 'LIKE', '%' . $term . '%')
+                )
+            )
             ->orWhere(
                 'serial_number',
                 'LIKE',
@@ -55,13 +58,14 @@ class EBikeService implements IBaseService
     public function getBySerialNumber($serialNumber)
     {
         return $this->eBike->newQuery()
-            ->with(['manufacturer', 'appliance', 'device.person'])->where('serial_number',
-            $serialNumber)->first();
+            ->with(['manufacturer', 'appliance', 'device.person'])->where(
+                'serial_number',
+                $serialNumber
+            )->first();
     }
 
     public function delete($model)
     {
         // TODO: Implement delete() method.
     }
-
 }

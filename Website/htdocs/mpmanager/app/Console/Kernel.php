@@ -19,6 +19,7 @@ use Inensus\MicroStarMeter\Console\Commands\InstallPackage as InstallMicroStarMe
 use Inensus\SunKingSHS\Console\Commands\InstallPackage as InstallSunKingSHSPackage;
 use Inensus\GomeLongMeter\Console\Commands\InstallPackage as InstallGomeLongMeterPackage;
 use Inensus\WavecomPaymentProvider\Console\Commands\InstallPackage as InstallWaveComPackage;
+use Inensus\AngazaSHS\Console\Commands\InstallPackage as InstallAngazaSHSPackage;
 
 class Kernel extends ConsoleKernel
 {
@@ -45,6 +46,7 @@ class Kernel extends ConsoleKernel
         InstallSunKingSHSPackage::class,
         InstallGomeLongMeterPackage::class,
         InstallWaveComPackage::class,
+        InstallAngazaSHSPackage::class,
     ];
 
     /**

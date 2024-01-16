@@ -62,7 +62,7 @@ class GeographicalInformationService implements IBaseService, IAssociative
         return $result;
     }
 
-    public function save($geographicalInformation): GeographicalInformation
+    public function save($geographicalInformation)
     {
         return $geographicalInformation->save();
     }

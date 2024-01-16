@@ -82,7 +82,8 @@
       "Inensus\\MicroStarMeter\\": "packages/inensus/micro-star-meter/src",
       "Inensus\\SunKingSHS\\": "packages/inensus/sun-king-shs/src",
       "Inensus\\GomeLongMeter\\": "packages/inensus/gome-long-meter/src",
-      "Inensus\\WavecomPaymentProvider\\": "packages/inensus/wavecom-payment-provider/src"
+      "Inensus\\WavecomPaymentProvider\\": "packages/inensus/wavecom-payment-provider/src",
+      "Inensus\\AngazaSHS\\": "packages/inensus/angaza-shs/src"
     }
   },
   "minimum-stability": "dev",

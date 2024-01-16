@@ -501,4 +501,9 @@ export const exportedRoutes = [
         component: require('@/plugins/wavecom-payment-provider/js/modules/Component.vue').default,
         meta: { layout: 'default' },
     },
+    {
+        path: '/angaza-shs/angaza-overview',
+        component: require('./plugins/angaza-shs/js/modules/Overview/Overview').default,
+        meta: { layout: 'default' },
+    },
 ]

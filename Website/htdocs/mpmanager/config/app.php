@@ -184,6 +184,7 @@ return [
         \Inensus\GomeLongMeter\Providers\GomeLongMeterServiceProvider::class,
         \Inensus\WavecomPaymentProvider\Providers\WavecomPaymentProviderServiceProvider::class,
         \Inensus\AngazaSHS\Providers\AngazaSHSServiceProvider::class,
+        \Inensus\DalyBms\Providers\DalyBmsServiceProvider::class
 
     ],
 
@@ -192,7 +193,7 @@ return [
     | Class Aliases
     |--------------------------------------------------------------------------
     |
-    | This array of class aliases will be registered when this applicationfff
+    | This array of class aliases will be registered when this application
     | is started. However, feel free to register as many as you wish as
     | the aliases are "lazy" loaded so they don't hinder performance.
     |

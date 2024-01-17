@@ -38,6 +38,7 @@ import VodacomTransactionDetail from '@/modules/Transactions/VodacomTransactionD
 import WaveMoneyTransactionDetail from '@/modules/Transactions/WaveMoneyTransactionDetail'
 import AgentTransactionDetail from '@/modules/Agent/AgentTransactionDetail'
 import Angaza from '@/plugins/angaza-shs/js/modules/Overview/Credential'
+import DalyBms from '@/plugins/daly-bms/js/modules/Overview/Credential'
 
 Vue.component('default', Default)
 Vue.component('Spark-Meter', Spark)
@@ -61,6 +62,7 @@ Vue.component('VodacomTransactionDetail', VodacomTransactionDetail)
 Vue.component('WaveMoneyTransactionDetail', WaveMoneyTransactionDetail)
 Vue.component('AgentTransactionDetail', AgentTransactionDetail)
 Vue.component('Angaza-SHS', Angaza)
+Vue.component('Daly-Bms', DalyBms)
 
 
 const unauthorizedPaths = ['login', 'forgot_password', 'welcome', 'register', '/wave-money/payment', '/wave-money/result']

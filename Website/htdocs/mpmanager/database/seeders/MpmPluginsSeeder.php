@@ -133,7 +133,7 @@ class MpmPluginsSeeder extends Seeder
                     'tail_tag' => 'Angaza SHS',
                     'installation_command' => 'angaza-shs:install',
                     'root_class' => 'AngazaSHS'
-                ],
+                ]
             )
         );
     }

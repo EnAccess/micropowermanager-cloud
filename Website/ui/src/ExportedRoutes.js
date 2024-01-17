@@ -502,6 +502,16 @@ export const exportedRoutes = [
         meta: { layout: 'default' },
     },
     {
+        path: '/e-bikes',
+        component: require('./pages/EBikes/index.vue').default,
+        meta: { layout: 'default' },
+    },
+    {
+        path: '/daly-bms/daly-bms-overview',
+        component: require('./plugins/daly-bms/js/modules/Overview/Overview').default,
+        meta: { layout: 'default' },
+    },
+    {
         path: '/angaza-shs/angaza-overview',
         component: require('./plugins/angaza-shs/js/modules/Overview/Overview').default,
         meta: { layout: 'default' },

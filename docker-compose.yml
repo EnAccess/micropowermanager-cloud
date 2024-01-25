@@ -12,8 +12,9 @@ services:
     links:
       - maria:db
       - redis:redis
-    environment:
-      VIRTUAL_HOST: api.mpmanager.local
+    ports:
+      - 8000:80
+      - 8443:443
     volumes:
       - ./Website/config/php/php.ini:/usr/local/etc/php/php.ini
       - ./Website/htdocs:/var/www/html
@@ -23,8 +24,8 @@ services:
     build:
       context: ./Website/ui/
       dockerfile: DockerfileServe
-    environment:
-      VIRTUAL_HOST: mpmanager.local
+    ports:
+      - 8001:8080
     volumes:
       - ./Website/ui:/usr/app/
       - frontend_node_modules:/usr/app/node_modules/
@@ -62,7 +63,9 @@ services:
   redis:
     image: redis:5
     volumes:
-      - ./redis/:/data
+      - redis_data:/data
+    ports:
+      - 6379:6379
 
   maria:
     container_name: maria
@@ -72,33 +75,17 @@ services:
     volumes:
       - ./DB/mysql:/var/lib/mysql
     ports:
-      - 3307:3306
+      - 3306:3306
 
   phpmyadmin:
     container_name: phpmyadmin
     image: phpmyadmin:latest
-    environment:
-      VIRTUAL_HOST: db.mpmanager.local
+    ports:
+      - "8080:80"
     depends_on:
       - maria
     links:
       - maria:db
-
-  nginxproxy:
-    container_name: nginx-proxy
-    image: jwilder/nginx-proxy:latest
-    ports:
-      - 80:80
-      - 443:443
-      - 6379:6379
-    environment:
-      VIRTUAL_PROTO: https
-    volumes:
-      - ./NginxProxy/proxy.conf:/etc/nginx/proxy.conf
-      - ./NginxProxy/conf.d:/etc/nginx/conf.d
-      - ./NginxProxy/certs:/etc/nginx/certs
-      - ./NginxProxy/vhost.d:/etc/nginx/vhost.d
-      - /var/run/docker.sock:/tmp/docker.sock:ro
 
 volumes:
   frontend_node_modules:

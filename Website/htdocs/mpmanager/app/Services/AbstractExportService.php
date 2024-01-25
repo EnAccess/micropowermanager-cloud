@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use app\Exceptions\ActiveSheetNotCreatedException;
+use App\Exceptions\ActiveSheetNotCreatedException;
 use App\Exceptions\SpreadSheetNotCreatedException;
 use App\Exceptions\SpreadSheetNotSavedException;
 use PhpOffice\PhpSpreadsheet\IOFactory;

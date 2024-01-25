@@ -6,7 +6,6 @@ use App\Models\SolarHomeSystem;
 use App\Models\Transaction\Transaction;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-
 class SolarHomeSystemTransactionService
 {
     public function __construct(private Transaction $transaction)
@@ -26,15 +25,18 @@ class SolarHomeSystemTransactionService
 
         $query = $this->transaction->newQuery()->with('originalTransaction')->whereHas(
             'device',
-            fn($q) => $q->whereHasMorph('device', SolarHomeSystem::class));
+            fn($q) => $q->whereHasMorph('device', SolarHomeSystem::class)
+        );
 
         if ($serialNumber) {
             $query->where('message', 'LIKE', '%' . request('serial_number') . '%');
         }
 
         if ($transactionProvider) {
-            $query->with($transactionProvider)->where(fn($q) => $q->whereHas($transactionProvider,
-                fn($q) => $q->whereNotNull('id')));
+            $query->with($transactionProvider)->where(fn($q) => $q->whereHas(
+                $transactionProvider,
+                fn($q) => $q->whereNotNull('id')
+            ));
         }
 
         if ($status) {

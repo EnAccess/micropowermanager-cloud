@@ -21,19 +21,22 @@ class EBikeTransactionService
         string $toDate = null,
         int $limit = null,
         bool $whereApplied = false
-    ){
+    ) {
 
         $query = $this->transaction->newQuery()->with('originalTransaction')->whereHas(
             'device',
-            fn($q) => $q->whereHasMorph('device', EBike::class));
+            fn($q) => $q->whereHasMorph('device', EBike::class)
+        );
 
         if ($serialNumber) {
             $query->where('message', 'LIKE', '%' . request('serial_number') . '%');
         }
 
         if ($transactionProvider) {
-            $query->with($transactionProvider)->where(fn($q) => $q->whereHas($transactionProvider,
-                fn($q) => $q->whereNotNull('id')));
+            $query->with($transactionProvider)->where(fn($q) => $q->whereHas(
+                $transactionProvider,
+                fn($q) => $q->whereNotNull('id')
+            ));
         }
 
         if ($status) {

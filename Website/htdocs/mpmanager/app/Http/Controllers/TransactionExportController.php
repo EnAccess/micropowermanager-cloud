@@ -13,7 +13,6 @@ class TransactionExportController
         private TransactionService $transactionService,
         private TransactionExportService $transactionExportService
     ) {
-
     }
 
     public function download(
@@ -29,13 +28,20 @@ class TransactionExportController
         $currency = $request->get('currency');
         $timeZone = $request->get('timeZone');
 
-        if($timeZone){
+        if ($timeZone) {
             $timeZone = urldecode($timeZone);
         }
 
         $transactionService = $this->transactionService->getRelatedService($type);
-        $data = $transactionService->search($serialNumber, $tariffId, $transactionProvider, $status,
-            $fromDate, $toDate, null);
+        $data = $transactionService->search(
+            $serialNumber,
+            $tariffId,
+            $transactionProvider,
+            $status,
+            $fromDate,
+            $toDate,
+            null
+        );
         $this->transactionExportService->createSpreadSheetFromTemplate($this->transactionExportService->getTemplatePath());
         $this->transactionExportService->setCurrency($currency);
         $this->transactionExportService->setTimeZone($timeZone);

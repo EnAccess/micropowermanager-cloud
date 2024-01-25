@@ -18,20 +18,18 @@ class OutstandingDebtsExportService extends AbstractExportService
             $this->worksheet->setCellValue('C' . ($key + 2), $value[2]);
             $this->worksheet->setCellValue('D' . ($key + 2), $value[3]);
             $this->worksheet->setCellValue('E' . ($key + 2), $value[4]);
-
         }
 
         foreach ($this->worksheet->getColumnIterator() as $column) {
             $this->worksheet->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
         }
-
     }
 
     public function setExportingData()
     {
         $this->exportingData = $this->outstandingDebtsData->map(function ($applianceRate) {
             return [
-                $applianceRate->assetPerson->person->name. ' ' . $applianceRate->assetPerson->person->surname,
+                $applianceRate->assetPerson->person->name . ' ' . $applianceRate->assetPerson->person->surname,
                 $applianceRate->assetPerson->asset->name,
                 $applianceRate->assetPerson->device_serial,
                 $applianceRate->due_date,

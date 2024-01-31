@@ -13,6 +13,7 @@ Welcome to the MPM Documentation
     about/minigriddashboard
     about/customers
     about/meters
+    about/targets_sidebar
     about/transactions
     about/tickets
     about/maintenance

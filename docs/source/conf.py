@@ -12,12 +12,13 @@
 #
 import os
 import sys
+from datetime import datetime
 
 
 # -- Project information -----------------------------------------------------
 
 project = 'MPManager'
-copyright = '2020, MPManager'
+copyright = f'{datetime.now().year}, MPManager'
 author = 'INENSUS IT Team'
 
 

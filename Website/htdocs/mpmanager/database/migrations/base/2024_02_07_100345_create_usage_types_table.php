@@ -13,8 +13,10 @@ return new class  extends Migration
      */
     public function up()
     {
-        Schema::connection('micropowermanager')->create('usage_types', function (Blueprint $table) {
+        Schema::connection('micro_power_manager')->create('usage_types', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('value');
             $table->timestamps();
         });
     }
@@ -26,6 +28,6 @@ return new class  extends Migration
      */
     public function down()
     {
-        Schema::connection('micropowermanager')->dropIfExists('usage_types');
+        Schema::connection('micro_power_manager')->dropIfExists('usage_types');
     }
 };

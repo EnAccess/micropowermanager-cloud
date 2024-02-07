@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class  extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -13,8 +12,16 @@ return new class  extends Migration
      */
     public function up()
     {
-        Schema::connection('micropowermanager')->table('main_settings', function (Blueprint $table) {
-            //
+        Schema::connection('shard')->table('main_settings', function (Blueprint $table) {
+            $table->enum('usage_type', [
+                'mini-grid',
+                'shs',
+                'e-bike',
+                'mini-grid&shs',
+                'mini-grid&e-bike',
+                'shs&e-bike',
+                'mini-grid&shs&e-bike'
+            ])->default('mini-grid&shs&e-bike')->after('id');
         });
     }
 
@@ -25,7 +32,7 @@ return new class  extends Migration
      */
     public function down()
     {
-        Schema::connection('micropowermanager')->table('main_settings', function (Blueprint $table) {
+        Schema::connection('shard')->table('main_settings', function (Blueprint $table) {
             //
         });
     }

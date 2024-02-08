@@ -6,10 +6,8 @@ use App\Models\UsageType;
 
 class UsageTypeService implements IBaseService
 {
-
     public function __construct(private UsageType $usageType)
     {
-
     }
 
     public function getAll($limit = null)
@@ -36,6 +34,4 @@ class UsageTypeService implements IBaseService
     {
         // TODO: Implement delete() method.
     }
-
-
 }

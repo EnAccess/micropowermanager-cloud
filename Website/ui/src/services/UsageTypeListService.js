@@ -7,23 +7,11 @@ export class UsageTypeListService {
     this.usageTypeList = [];
   }
 
-  updateList(usageTypeData) {
-    this.usageTypeList = [];
-
-    for (let [k, v] of Object.entries(usageTypeData)) {
-      let usage_type = {
-        id: v.value,
-        name: v.name,
-      };
-      this.usageTypeList.push(usage_type);
-    }
-  }
-
   async list() {
     try {
       let response = await this.repository.list();
       if (response.status === 200) {
-        this.updateList(response.data.data);
+        this.usageTypeList = response.data.data;
         return this.usageTypeList;
       } else {
         return new ErrorHandler(response.error, "http", response.status);

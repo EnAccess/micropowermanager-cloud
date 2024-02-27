@@ -99,7 +99,7 @@
                     <md-select name="usage_type" id="usage_type" v-model="mainSettingsService.mainSettings.usageType">
                         <md-option disabled>Select Usage Types</md-option>
                         <md-option v-for="ut in usageTypeListService.usageTypeList" :key="ut.id"
-                                   :value="ut.id">{{ ut.name }}
+                                   :value="ut.value">{{ ut.name }}
                         </md-option>
                     </md-select>
                 </md-field>

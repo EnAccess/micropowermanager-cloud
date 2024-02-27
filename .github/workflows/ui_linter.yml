@@ -41,7 +41,6 @@ jobs:
       - name: Run ESLint for JavaScript files
         run: npx eslint ./src/**/*.js
         working-directory: ./Website/ui
-        continue-on-error: true
 
   eslint-vue:
     needs: setup-node
@@ -63,7 +62,6 @@ jobs:
       - name: Run ESLint for Vue files
         run: npx eslint ./src/**/*.vue
         working-directory: ./Website/ui
-        continue-on-error: true
 
   build-production:
     needs: setup-node

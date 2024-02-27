@@ -98,8 +98,8 @@
                     <label for="usage_type">Usage Type</label>
                     <md-select name="usage_type" id="usage_type" v-model="mainSettingsService.mainSettings.usageType">
                         <md-option disabled>Select Usage Types</md-option>
-                        <md-option v-for="(item, index) in usageTypeListService.usageTypeList" :key="item.id"
-                                   :value="item.id">{{ item.name }}
+                        <md-option v-for="ut in usageTypeListService.usageTypeList" :key="ut.id"
+                                   :value="ut.id">{{ ut.name }}
                         </md-option>
                     </md-select>
                 </md-field>
@@ -185,10 +185,7 @@ export default {
         },
         async getUsageTypeList () {
             try {
-                console.log("asdfasd")
                 await this.usageTypeListService.list()
-                console.log("asdfasd2")
-                console.log(this.usageTypeListService.usageTypesList)
             } catch (e) {
                 this.alertNotify('error', e.message)
             }

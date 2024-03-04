@@ -446,12 +446,12 @@ export default {
                 this.deviceSelectionList = availableDevices.filter((device) => {
                     debugger
                     switch (appliance.assetTypeId) {
-                        case APPLIANCE_TYPE_SHS_ID:
-                            return (device.deviceType === 'solar_home_system' && device.device.assetId === this.selectedApplianceId)
-                        case APPLIANCE_TYPE_E_BIKE_ID:
-                            return (device.deviceType === 'e_bike' && device.device.assetId === this.selectedApplianceId)
-                        default:
-                            return false
+                    case APPLIANCE_TYPE_SHS_ID:
+                        return (device.deviceType === 'solar_home_system' && device.device.assetId === this.selectedApplianceId)
+                    case APPLIANCE_TYPE_E_BIKE_ID:
+                        return (device.deviceType === 'e_bike' && device.device.assetId === this.selectedApplianceId)
+                    default:
+                        return false
                     }
                 }).map(device => {
                     return {

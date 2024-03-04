@@ -70,6 +70,7 @@ export default {
     mixins: [notify],
     props: {
         clusterId: {
+            // eslint-disable-next-line vue/require-prop-type-constructor
             type: Number | null,
             default: null,
         },

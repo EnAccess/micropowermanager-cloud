@@ -444,7 +444,6 @@ export default {
             if (this.isDeviceBindingRequired(appliance)) {
                 this.isDeviceSelectionRequired = true
                 this.deviceSelectionList = availableDevices.filter((device) => {
-                    debugger
                     switch (appliance.assetTypeId) {
                     case APPLIANCE_TYPE_SHS_ID:
                         return (device.deviceType === 'solar_home_system' && device.device.assetId === this.selectedApplianceId)

@@ -206,9 +206,7 @@
 <script>
 import { timing } from '@/mixins/timing'
 import { currency } from '@/mixins/currency'
-import VodacomTransactionDetail from '@/modules/Transactions/VodacomTransactionDetail'
 import PaymentHistoryChart from '@/modules/Transactions/PaymentHistoryChart'
-import AirtelTransactionDetail from '@/modules/Transactions/AirtelTransactionDetail'
 import AgentTransactionDetail from '@/modules/Agent/AgentTransactionDetail'
 import Widget from '@/shared/widget'
 import { TransactionService } from '@/services/TransactionService'

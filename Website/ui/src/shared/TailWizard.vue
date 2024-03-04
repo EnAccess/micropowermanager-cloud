@@ -4,7 +4,7 @@
     >
       <md-dialog-content>
         <md-steppers class="tail-stepper" md-linear :md-active-step.sync="activeStep">
-
+          <!-- eslint-disable-next-line vue/valid-v-for -->
           <md-step class="stepper-step" v-for="(tailObj,index) in tail" :id="tailObj.tag"
                    :md-label="tailObj.tag">
             <div class="exclamation">

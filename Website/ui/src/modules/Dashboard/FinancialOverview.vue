@@ -113,6 +113,7 @@ export default {
     },
 
     watch: {
+        // eslint-disable-next-line no-unused-vars
         revenue (newVal, oldVal) {
             this.clusterService.financialData = newVal
         }

@@ -229,6 +229,7 @@
                                      :options="deviceSelectionList"
                                      :loading="loading"
                                      :show-no-results="true">
+                            <!-- eslint-disable-next-line vue/no-unused-vars -->
                             <template slot="clear" slot-scope="props">
                                 <div class="multiselect__clear" v-if="deviceSelectionList.length"></div>
                             </template>

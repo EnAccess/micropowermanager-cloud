@@ -28,7 +28,6 @@ jobs:
       - name: Run ESLint
         run: npm run lint
         working-directory: ./Website/ui
-        continue-on-error: true
 
   build-production:
     runs-on: ubuntu-latest

@@ -17,13 +17,13 @@ export default {
         this.map.on('draw:created', (event) => {
             const type = event.layerType
             const layer = event.layer
-            const drawnLayers = drawingLayer.getLayers()
+            // const drawnLayers = drawingLayer.getLayers()
             let cluster = null
             map.eachLayer(function (layer) {
                 if (layer.getBounds) {
                     cluster = layer
                 }
-            });
+            })
             const bounds = cluster.getBounds()
             this.removeExistingMarkers()
 

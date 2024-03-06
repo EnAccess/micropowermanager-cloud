@@ -19,7 +19,7 @@
                                             <md-option disabled value>--{{ $tc('words.select') }}--</md-option>
                                             <md-option
                                                 :value="applianceType.id"
-                                                v-for="(applianceType, index) in assetTypeService.list"
+                                                v-for="applianceType in assetTypeService.list"
                                                 :key="applianceType.id"
                                             >{{ applianceType.name }}
                                             </md-option>
@@ -105,7 +105,7 @@ export default {
             }
             try {
                 this.loading = true
-               const appliances =  await this.applianceService.createAppliance()
+                const appliances =  await this.applianceService.createAppliance()
 
                 this.loading = false
                 this.alertNotify('success', this.$tc('phrases.newAppliance', 1))

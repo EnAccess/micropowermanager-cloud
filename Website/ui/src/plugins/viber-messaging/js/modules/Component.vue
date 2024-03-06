@@ -1,11 +1,12 @@
+<!-- eslint-disable-next-line vue/valid-template-root -->
 <template>
-
 </template>
+
 <script>
-  export default {
+export default {
     name: 'Component',
     data () {
-      return {}
+        return {}
     },
     mounted () {
 
@@ -16,8 +17,8 @@
     methods: {
 
     }
-  }
+}
 </script>
-<style scoped>
 
+<style scoped>
 </style>

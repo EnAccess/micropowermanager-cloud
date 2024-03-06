@@ -25,7 +25,7 @@
                                             <md-option disabled value>--{{ $tc('words.select') }}--</md-option>
                                             <md-option
                                                 :value="appliance.id"
-                                                v-for="(appliance, index) in applianceService.list"
+                                                v-for="appliance in applianceService.list"
                                                 :key="appliance.id"
                                             >{{ appliance.name }}
                                             </md-option>
@@ -119,7 +119,7 @@
                                             <md-option disabled value>--{{ $tc('words.select') }}--</md-option>
                                             <md-option
                                                 :value="appliance.id"
-                                                v-for="(appliance, index) in applianceService.list"
+                                                v-for="appliance in applianceService.list"
                                                 :key="appliance.id"
                                             >{{ appliance.name }}
                                             </md-option>
@@ -229,6 +229,7 @@
                                      :options="deviceSelectionList"
                                      :loading="loading"
                                      :show-no-results="true">
+                            <!-- eslint-disable-next-line vue/no-unused-vars -->
                             <template slot="clear" slot-scope="props">
                                 <div class="multiselect__clear" v-if="deviceSelectionList.length"></div>
                             </template>
@@ -444,14 +445,13 @@ export default {
             if (this.isDeviceBindingRequired(appliance)) {
                 this.isDeviceSelectionRequired = true
                 this.deviceSelectionList = availableDevices.filter((device) => {
-                    debugger
                     switch (appliance.assetTypeId) {
-                        case APPLIANCE_TYPE_SHS_ID:
-                            return (device.deviceType === 'solar_home_system' && device.device.assetId === this.selectedApplianceId)
-                        case APPLIANCE_TYPE_E_BIKE_ID:
-                            return (device.deviceType === 'e_bike' && device.device.assetId === this.selectedApplianceId)
-                        default:
-                            return false
+                    case APPLIANCE_TYPE_SHS_ID:
+                        return (device.deviceType === 'solar_home_system' && device.device.assetId === this.selectedApplianceId)
+                    case APPLIANCE_TYPE_E_BIKE_ID:
+                        return (device.deviceType === 'e_bike' && device.device.assetId === this.selectedApplianceId)
+                    default:
+                        return false
                     }
                 }).map(device => {
                     return {

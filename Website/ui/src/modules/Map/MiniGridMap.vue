@@ -16,6 +16,7 @@ export default {
     mixins: [sharedMap, notify],
     props: {
         miniGridId: {
+            // eslint-disable-next-line vue/require-prop-type-constructor
             type: Number | String,
             required: false
         }
@@ -37,7 +38,7 @@ export default {
         this.map.on('draw:created', (event) => {
             const type = event.layerType
             const layer = event.layer
-            const drawnLayers = drawingLayer.getLayers()
+            // const drawnLayers = drawingLayer.getLayers()
             let cluster = null
             map.eachLayer(function (layer) {
                 if (layer.getBounds) {
@@ -139,7 +140,7 @@ export default {
             // "this"  cannot be used inside the L.geoJson function
 
             const nonEditableLayers = this.nonEditableLayer
-            const editableLayers = this.editableLayer
+            // const editableLayers = this.editableLayer
             const geoDataItems = this.geoDataItems
             const map = this.map
             const drawnCluster = L.geoJson(drawing, {
@@ -186,7 +187,7 @@ export default {
         },
         setDeviceMarkers () {
             this.mappingService.markingInfos.filter((markingInfo) => markingInfo.markerType === MARKER_TYPE.METER || markingInfo.markerType === MARKER_TYPE.SHS || markingInfo.markerType === MARKER_TYPE.E_BIKE).map((markingInfo) => {
-               const deviceMarkerIcon = L.icon({
+                const deviceMarkerIcon = L.icon({
                     ...ICON_OPTIONS,
                     iconUrl: ICONS[markingInfo.markerType]
                 })
@@ -271,14 +272,14 @@ export default {
                 const lon = parseFloat(points[1])
                 let markerType = ''
                 switch (device.device_type) {
-                    case 'e_bike':
-                        markerType = MARKER_TYPE.E_BIKE
-                        break
-                    case 'shs':
-                        markerType = MARKER_TYPE.SHS
-                        break
-                    default:
-                        markerType = MARKER_TYPE.METER
+                case 'e_bike':
+                    markerType = MARKER_TYPE.E_BIKE
+                    break
+                case 'shs':
+                    markerType = MARKER_TYPE.SHS
+                    break
+                default:
+                    markerType = MARKER_TYPE.METER
                 }
                 markingInfos.push({
                     id: miniGridWithGeoData.id,

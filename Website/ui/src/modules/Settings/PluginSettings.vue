@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="md-layout md-gutter">
-            <div v-for="plugin in enriched_plugins.filter(p => p.plugin_for_usage_type || p.checked)" class="box md-layout-item  md-size-25 md-small-size-50">
+            <div v-for="plugin in enriched_plugins.filter(p => p.plugin_for_usage_type || p.checked)" :key=plugin.id class="box md-layout-item  md-size-25 md-small-size-50">
                 <div class="header-text">{{ plugin.name }}</div>
                 <div class="usage-type-warning" v-if="plugin.checked && !plugin.plugin_for_usage_type">⚠️ Plugin not supported for current usageType. It is recommended that you disable this plugin.</div>
-                <small class="sub-text" v-html="plugin.description">{{ plugin.description }}</small>
+                <small class="sub-text">{{ plugin.description }}</small>
                 <div class="sub-text">Usage type: {{ plugin.usage_type }}</div>
                 <md-switch v-model="plugin.checked" @change="onSwitchChange($event,plugin)" class="data-stream-switch"
                            :disabled="switching"/>
@@ -42,12 +42,12 @@ export default {
     },
     computed: {
         enriched_plugins: function() {
-            return this.plugins.map(plugin => ({ 
-                ...plugin, 
+            return this.plugins.map(plugin => ({
+                ...plugin,
                 plugin_for_usage_type: this.validUsageType(
                     plugin.usage_type,
                     this.mainSettings.usageType
-                ) 
+                )
             }))
         }
     },

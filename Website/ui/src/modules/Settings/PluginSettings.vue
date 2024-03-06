@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="md-layout md-gutter">
-            <div v-for="plugin in enriched_plugins.filter(p => p.plugin_for_usage_type || p.checked)" :key=plugin.id class="box md-layout-item  md-size-25 md-small-size-50">
+            <div v-for="plugin in enrichedPlugins.filter(p => p.plugin_for_usage_type || p.checked)" :key=plugin.id class="box md-layout-item  md-size-25 md-small-size-50">
                 <div class="header-text">{{ plugin.name }}</div>
                 <div class="usage-type-warning" v-if="plugin.checked && !plugin.plugin_for_usage_type">⚠️ Plugin not supported for current usageType. It is recommended that you disable this plugin.</div>
                 <small class="sub-text">{{ plugin.description }}</small>
@@ -41,7 +41,7 @@ export default {
         }
     },
     computed: {
-        enriched_plugins: function() {
+        enrichedPlugins: function() {
             return this.plugins.map(plugin => ({
                 ...plugin,
                 plugin_for_usage_type: this.validUsageType(

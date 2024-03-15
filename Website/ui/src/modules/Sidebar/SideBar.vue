@@ -33,6 +33,13 @@
                         <span class="md-list-item-text c-white">
                             {{ translateItem(menu.name) }}
                         </span>
+                        <md-icon
+                            v-if="protectedPages.includes(menu.url_slug)"
+                            class="c-white password-protected-lock-icon"
+                        >
+                            lock
+                        </md-icon>
+
                         <md-list
                             slot="md-expand"
                             v-if="menu.sub_menu_items.length !== 0"
@@ -48,6 +55,16 @@
                                     <span class="md-list-item-text c-white">
                                         {{ $tc('menu.subMenu.' + sub.name) }}
                                     </span>
+                                    <md-icon
+                                        v-if="
+                                            protectedPages.includes(
+                                                sub.url_slug,
+                                            )
+                                        "
+                                        class="c-white password-protected-lock-icon"
+                                    >
+                                        lock
+                                    </md-icon>
                                 </md-list-item>
                             </router-link>
                         </md-list>
@@ -60,9 +77,12 @@
 <script>
 import { translateItem } from '@/Helpers/TranslateItem'
 import { EventBus } from '@/shared/eventbus'
+import PasswordProtection from '@/shared/PasswordProtection'
 
 export default {
     name: 'SideBar',
+    mixins: [PasswordProtection],
+
     data() {
         return {
             show_extender: false,
@@ -230,6 +250,10 @@ export default {
     margin-right: 10px !important;
     width: 25px !important;
     height: 25px !important;
+}
+
+.md-icon.password-protected-lock-icon {
+    font-size: 16px !important;
 }
 
 .sub-menu {

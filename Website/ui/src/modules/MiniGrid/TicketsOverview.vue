@@ -1,12 +1,16 @@
 <template>
     <div>
-        <widget :id="'ticketing-trends'" :title="$tc('phrases.ticketsOverview')">
-
+        <widget
+            :id="'ticketing-trends'"
+            :title="$tc('phrases.ticketsOverview')"
+        >
             <div v-if="loading">
-                <loader/>
+                <loader />
             </div>
             <div class="md-layout md-gutter" v-else>
-                <div class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100">
+                <div
+                    class="md-layout-item md-medium-size-100 md-xsmall-size-100 md-size-100"
+                >
                     <h5>{{ $tc('phrases.ticketsOverview', 2) }}</h5>
                     <GChart
                         type="ColumnChart"
@@ -15,16 +19,12 @@
                         :resizeDebounce="500"
                     />
                 </div>
-
             </div>
-
-
         </widget>
     </div>
 </template>
 
 <script>
-import { RevenueService } from '@/services/RevenueService'
 import Widget from '../../shared/widget'
 import Loader from '@/shared/Loader.vue'
 import { EventBus } from '@/shared/eventbus'
@@ -37,23 +37,21 @@ export default {
             required: true,
         },
         ticketData: {
-            required: true
-        }
+            required: true,
+        },
     },
-    mounted () {
+    mounted() {
         EventBus.$on('miniGridCachedDataLoading', (loading) => {
             this.loading = loading
         })
     },
-    data () {
+    data() {
         return {
-            loading: false
+            loading: false,
         }
     },
-    methods: {}
+    methods: {},
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

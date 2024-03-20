@@ -2,8 +2,8 @@ import { baseUrl } from './Client/AxiosClient'
 
 const resource = `${baseUrl}/api/export/debts`
 export default {
-
-    download(email,slug) {
+    // eslint-disable-next-line no-unused-vars
+    download(email, slug) {
         return `${resource}/${email}`
-    }
+    },
 }

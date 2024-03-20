@@ -2,8 +2,7 @@ import RepositoryFactory from '../repositories/RepositoryFactory'
 import { ErrorHandler } from '@/Helpers/ErrorHander'
 
 export class MainSettingsService {
-
-    constructor () {
+    constructor() {
         this.repository = RepositoryFactory.get('mainSettings')
         this.mainSettings = {
             siteTitle: null,
@@ -13,10 +12,11 @@ export class MainSettingsService {
             language: null,
             vatEnergy: null,
             vatAppliance: null,
+            usageType: null,
         }
     }
 
-    fromJson (mainSettings) {
+    fromJson(mainSettings) {
         this.mainSettings = {
             id: mainSettings.id,
             siteTitle: mainSettings.site_title,
@@ -26,11 +26,12 @@ export class MainSettingsService {
             language: mainSettings.language,
             vatEnergy: mainSettings.vat_energy,
             vatAppliance: mainSettings.vat_appliance,
+            usageType: mainSettings.usage_type,
         }
         return this.mainSettings
     }
 
-    async list () {
+    async list() {
         try {
             let response = await this.repository.list()
             if (response.status === 200) {
@@ -44,7 +45,7 @@ export class MainSettingsService {
         }
     }
 
-    async update () {
+    async update() {
         try {
             let mainSettingsPm = {
                 id: this.mainSettings.id,
@@ -55,9 +56,12 @@ export class MainSettingsService {
                 language: this.mainSettings.language,
                 vat_energy: this.mainSettings.vatEnergy,
                 vat_appliance: this.mainSettings.vatAppliance,
+                usage_type: this.mainSettings.usageType,
             }
-            let response = await this.repository.update(mainSettingsPm.id,
-                mainSettingsPm)
+            let response = await this.repository.update(
+                mainSettingsPm.id,
+                mainSettingsPm,
+            )
             if (response.status === 200) {
                 this.fromJson(response.data.data)
                 return this.mainSettings

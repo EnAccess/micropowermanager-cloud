@@ -1,31 +1,34 @@
 import axios from 'axios'
-import {config} from '@/config'
+import { config } from '@/config'
 
-function  getBaseUrl () {
-    if (config.env === 'development') {
-        return "http://localhost:8000";
-    }
-    return window.location.protocol + '//' + window.location.hostname
-}
+function getBaseUrl() {
+    const baseUrlFromEnv = process.env.VUE_APP_MPM_BACKEND_URL
+
+    if (baseUrlFromEnv) {
+        return baseUrlFromEnv
+    } else {
+        if (config.env === 'development') {
+            return "http://localhost:8000"
+        }
+        return window.location.protocol + '//' + window.location.hostname
 
 export const baseUrl = getBaseUrl()
 
 const axiosClient = axios.create({
-        timeout: 120000, // Set the timeout to 120 seconds (adjust as needed)
-    }
-)
+    timeout: 120000, // Set the timeout to 120 seconds (adjust as needed)
+})
 
 axiosClient.interceptors.request.use(
-    config => {
+    (config) => {
         const token = localStorage.getItem('token')
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token
         }
         return config
     },
-    error => {
+    (error) => {
         Promise.reject(error)
-    }
+    },
 )
 
 export default axiosClient

@@ -136,8 +136,17 @@ export default {
         },
     },
     mounted() {
-        this.setDate(new Date('2024-01-01'), 'from')
-        this.setDate(new Date(), 'to')
+        let currentDate = new Date()
+        // Set the time frame to show past 3 month until today
+        let startDate = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() - 2,
+            1,
+        )
+        let endDate = currentDate
+
+        this.setDate(startDate, 'from')
+        this.setDate(endDate, 'to')
     },
     methods: {
         showPeriod() {

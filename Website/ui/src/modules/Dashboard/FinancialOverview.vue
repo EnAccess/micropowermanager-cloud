@@ -16,6 +16,7 @@
                         v-model="period.from"
                         md-immediately
                         v-validate="'required'"
+                        data-vv-name="periodFrom"
                     >
                         <label>{{ $tc('phrases.fromDate') }}</label>
                     </md-datepicker>
@@ -28,6 +29,7 @@
                         v-model="period.to"
                         md-immediately
                         v-validate="'required'"
+                        data-vv-name="periodTo"
                     >
                         <label>{{ $tc('phrases.toDate') }}</label>
                     </md-datepicker>
@@ -108,7 +110,6 @@ export default {
             },
             loading: false,
             setPeriod: false,
-            periodText: '-',
             disabled: {
                 customPredictor: function (date) {
                     let today = new Date()
@@ -134,12 +135,12 @@ export default {
             this.clusterService.financialData = newVal
         },
     },
+    mounted() {
+        this.setDate(new Date('2024-01-01'), 'from')
+        this.setDate(new Date(), 'to')
+    },
     methods: {
         showPeriod() {
-            this.period = {
-                from: null,
-                to: null,
-            }
             this.setPeriod = !this.setPeriod
         },
         async getClusterFinancialData() {
@@ -157,9 +158,6 @@ export default {
                     ? moment(this.period.to).format('YYYY-MM-DD')
                     : null
             this.periodChanged(from, to)
-            if (from !== null) {
-                this.periodText = from + ' - ' + to
-            }
             this.setPeriod = false
             this.loading = false
         },
@@ -180,6 +178,9 @@ export default {
         },
     },
     computed: {
+        periodText() {
+            return this.period.from + ' - ' + this.period.to
+        },
         lineChartData() {
             return this.clusterService.lineChartData(true)
         },

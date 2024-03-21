@@ -7,11 +7,13 @@ use App\Models\MaintenanceUsers;
 use App\Models\Meter\Meter;
 use App\Models\Meter\MeterToken;
 use App\Models\Person\Person;
+use App\Models\Token;
 use App\Models\Transaction\AgentTransaction;
 use App\Models\Transaction\Transaction;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inensus\CalinMeter\Models\CalinTransaction;
 use Inensus\SwiftaPaymentProvider\Models\SwiftaTransaction;
@@ -26,8 +28,6 @@ use App\Models\Transaction\VodacomTransaction;
 
 class DummyDataCreator extends AbstractSharedCommand
 {
-    public const DEMO_COMPANY_ID = 11;
-
     protected $signature = 'dummy:create-data {amount} {--company-id=} {--type=}';
     protected $description = 'creates dummy data for demo company';
 
@@ -49,7 +49,7 @@ class DummyDataCreator extends AbstractSharedCommand
         private VodacomTransaction $vodacomTransaction,
         private AirtelTransaction $airtelTransaction,
         private Meter $meter,
-        private MeterToken $token,
+        private Token $token,
         private CalinTransaction $calinTransaction,
         private MainSettings $mainSettings,
         private TicketCategory $ticketCategory,
@@ -68,11 +68,6 @@ class DummyDataCreator extends AbstractSharedCommand
         $companyId = $this->option('company-id');
         $type = $this->option('type') ?? 'transaction';
         $amount = $this->argument('amount');
-
-        if (intval($companyId) !== self::DEMO_COMPANY_ID) {
-            echo 'only demo company is allowed to create fake transactions';
-            return;
-        }
 
         if (config('app.env') == 'production') {
             echo 'production mode is not allowed to create fake transactions';
@@ -101,15 +96,8 @@ class DummyDataCreator extends AbstractSharedCommand
         try {
             //get randomly a user
             $randomMeter = $this->meter::inRandomOrder()->with([
-                'meterParameter',
-                'meterParameter' => function ($q) {
-                    $q->where('owner_type', 'person', function ($q) {
-                        $q->whereHas('addresses', function ($q) {
-                            return $q->where('is_primary', 1);
-                        });
-                    });
-                },
-                'meterParameter.tariff'
+                'device',
+                'tariff'
             ])->limit(1)->firstOrFail();
         } catch (ModelNotFoundException $x) {
             echo 'failed to find a random meter';
@@ -122,7 +110,7 @@ class DummyDataCreator extends AbstractSharedCommand
         $dummyDate = date('Y-m-d', strtotime('-' . mt_rand(0, 30) . ' days'));
 
         try {
-            $meterOwnerPhoneNumber = $randomMeter->meterParameter->owner->addresses()->firstOrFail();
+            $meterOwnerPhoneNumber = $randomMeter->device->person->addresses()->firstOrFail();
         } catch (\Exception $x) {
             echo 'failed to get meter owner address';
             return;
@@ -149,7 +137,7 @@ class DummyDataCreator extends AbstractSharedCommand
         $manufacturerTransaction = $this->calinTransaction->newQuery()->create([]);
 
         if ($transactionType instanceof AgentTransaction) {
-            $city = $randomMeter->meterParameter->owner->addresses()->first()->city()->first();
+            $city = $randomMeter->device->person->addresses()->first()->city()->first();
             $miniGrid = $city->miniGrid()->first();
             $agent = $miniGrid->agent()->first();
             $subTransaction = $this->agentTransaction->newQuery()->create([
@@ -186,7 +174,7 @@ class DummyDataCreator extends AbstractSharedCommand
                 'order_id' => Str::random(10),
                 'reference_id' => Str::random(10),
                 'currency' => $mainSettings ? $mainSettings->currency : '$',
-                'customer_id' => $randomMeter->meterParameter->owner->id,
+                'customer_id' => $randomMeter->device->person->id,
                 'meter_serial' => $randomMeter['serial_number'],
                 'external_transaction_id' => Str::random(10),
                 'attempts' => 1,
@@ -258,27 +246,24 @@ class DummyDataCreator extends AbstractSharedCommand
         // pay appliance installments
         $applianceInstallmentPayer = resolve('ApplianceInstallmentPayer');
         $applianceInstallmentPayer->initialize($transactionData);
-        $transactionData->transaction->amount = $applianceInstallmentPayer->pay();
+        $transactionData->transaction->amount = $applianceInstallmentPayer->payInstallments();
         $transactionData->totalAmount = $transactionData->transaction->amount;
         $transactionData->paidRates = $applianceInstallmentPayer->paidRates;
         $transactionData->shsLoan = $applianceInstallmentPayer->shsLoan;
 
         // generate dummy token
         if ($transactionData->transaction->amount > 0) {
-            $token = $this->token->newQuery()->create([
+            $tokenData = [
                 'token' => Str::random(30),
-                'energy' => round(
+                'load' => round(
                     $transactionData->transaction->amount /
-                    ($randomMeter['meterParameter']['tariff']['price']),
+                    ($randomMeter['tariff']['price']),
                     2
-                ),
-                'created_at' => $dummyDate,
-                'updated_at' => $dummyDate,
-            ]);
+                )
+            ];
+            $token = $this->token->newQuery()->make(['token' => $tokenData['token'], 'load' => $tokenData['load']]);
             $token->transaction()->associate($transaction);
-            $token->meter()->associate($randomMeter);
             $token->save();
-
             $transactionData->token = $token;
 
             // payment event
@@ -290,7 +275,7 @@ class DummyDataCreator extends AbstractSharedCommand
                     'paymentType' => 'energy',
                     'sender' => $transactionData->transaction->sender,
                     'paidFor' => $token,
-                    'payer' => $transactionData->meterParameter->owner,
+                    'payer' => $transactionData->device->person,
                     'transaction' => $transactionData->transaction,
                 ]
             );

@@ -8,7 +8,7 @@ function getBaseUrl() {
         return baseUrlFromEnv
     } else {
         if (config.env === 'development') {
-            return "http://localhost:8000"
+            return 'http://localhost:8000'
         }
         return window.location.protocol + '//' + window.location.hostname
     }

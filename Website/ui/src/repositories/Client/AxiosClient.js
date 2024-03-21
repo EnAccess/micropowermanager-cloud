@@ -11,6 +11,8 @@ function getBaseUrl() {
             return "http://localhost:8000"
         }
         return window.location.protocol + '//' + window.location.hostname
+    }
+}
 
 export const baseUrl = getBaseUrl()
 
